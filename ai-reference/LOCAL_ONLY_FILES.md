@@ -1,9 +1,13 @@
 # LOCAL-ONLY FILES — never commit to this repo
 
-Persona prompt files are personal and must stay on the server working copy only:
+Persona prompt configs contain personal content and stay on the deployed
+working copy (/mnt/storage/tools/open-llm-vtuber/) only:
 
-- characters/Tetzari.yaml
-- characters/Leena.yaml
+- characters/tetzari.yaml
+- characters/aurora.yaml
+- characters/zedra.yaml
+- conf.yaml (deployment config: model endpoints, Kokoro wiring)
 
-(These live at /home/aiserver/Documents/open-llm-vtuber/ on the server.)
-When the list grows (new personas), update this file AND ai-reference/OPEN_LLM_VTUBER_AI_INFO.MD.
+Persona source of truth: Nextcloud "AI soul files".
+When the list grows (new personas), update this file AND
+ai-reference/OPEN_LLM_VTUBER_AI_INFO.MD.

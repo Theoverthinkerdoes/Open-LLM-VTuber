@@ -9,16 +9,21 @@
 - **Purpose:** Local AI VTuber presence — Live2D characters rendered on screen/phone, driven by the local model stack (Open WebUI / Hermes).
 - **Repo (fork, authoritative for dev):** https://github.com/Theoverthinkerdoes/Open-LLM-VTuber (default branch `main`)
 - **Upstream:** https://github.com/Open-LLM-VTuber/Open-LLM-VTuber — fork was even with upstream as of 2026-09-24.
-- **Server working copy:** `/home/aiserver/Documents/open-llm-vtuber/` (NOT a git repo — runtime installation. The repo clone is the source of truth for code; this dir holds running state + local-only assets.)
+- **DEPLOYED working copy (the real one):** `/mnt/storage/tools/open-llm-vtuber/` — git clone of the fork @ 992309c, venv py3.11, systemd service on :12393. This is a git repo; agent code work happens here.
+- **STALE copy (do not use):** `/home/aiserver/Documents/open-llm-vtuber/` — not a git repo, old venv, superseded. Flagged for deletion in SERVER_AI_INFO.MD.
 
 ## CRITICAL: Local-only persona files
 
-The following files contain personal persona prompts and MUST NEVER be committed to the repo:
+The persona prompt configs contain personal content and MUST NEVER be committed to the repo. In the deployed copy they are untracked/local:
 
-- `/home/aiserver/Documents/open-llm-vtuber/characters/Tetzari.yaml`
-- `/home/aiserver/Documents/open-llm-vtuber/characters/Leena.yaml`
+- `characters/tetzari.yaml` (deployed boot-default character)
+- `characters/aurora.yaml`
+- `characters/zedra.yaml`
+- `conf.yaml` (deployment config: model endpoints, Kokoro voice wiring — instance-specific)
 
-Rule for agents: when creating branches/PRs or syncing the repo, exclude these paths. They live only in the server working copy (which is gitignored/untracked). If a future sync tool would copy `characters/` wholesale, filter these two files out. See `LOCAL_ONLY_FILES.md` note below and keep this list current as new personas are added.
+Persona source of truth: Nextcloud "AI soul files" (AURORA_SOUL.MD, TETZARI_SOUL.MD, ZEDRA_SOUL.MD).
+
+Rule for agents: when creating branches/PRs or syncing the repo, exclude these paths. If a future sync tool would copy `characters/` wholesale, filter these files out. See `ai-reference/LOCAL_ONLY_FILES.md` and keep both lists current as new personas are added.
 
 ## Roadmap (planned work, user-approved direction)
 
