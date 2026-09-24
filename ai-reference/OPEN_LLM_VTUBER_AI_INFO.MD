@@ -12,18 +12,19 @@
 - **DEPLOYED working copy (the real one):** `/mnt/storage/tools/open-llm-vtuber/` — git clone of the fork @ 992309c, venv py3.11, systemd service on :12393. This is a git repo; agent code work happens here.
 - **STALE copy (do not use):** `/home/aiserver/Documents/open-llm-vtuber/` — not a git repo, old venv, superseded. Flagged for deletion in SERVER_AI_INFO.MD.
 
-## CRITICAL: Local-only persona files
+## Persona files
 
-The persona prompt configs contain personal content and MUST NEVER be committed to the repo. In the deployed copy they are untracked/local:
+**The repo is PRIVATE.** Persona prompt configs are versioned in `local-personas/` as backups:
 
-- `characters/tetzari.yaml` (deployed boot-default character)
-- `characters/aurora.yaml`
-- `characters/zedra.yaml`
-- `conf.yaml` (deployment config: model endpoints, Kokoro voice wiring — instance-specific)
+- `local-personas/tetzari.yaml` (deployed boot-default character)
+- `local-personas/aurora.yaml`
+- `local-personas/zedra.yaml`
+- `local-personas/leena.yaml` (working-copy-only persona, not yet deployed)
+- `local-personas/conf.deployment.example.yaml` (deployment conf: model endpoints, Kokoro wiring — instance-specific, redact before reuse)
 
-Persona source of truth: Nextcloud "AI soul files" (AURORA_SOUL.MD, TETZARI_SOUL.MD, ZEDRA_SOUL.MD).
+Persona source of truth: Nextcloud "AI soul files" (AURORA_SOUL.MD, TETZARI_SOUL.MD, ZEDRA_SOUL.MD). The deployed working copy's own `characters/*.yaml` + `conf.yaml` remain the live runtime files; agents edit those for deployment changes and mirror updates into `local-personas/`.
 
-Rule for agents: when creating branches/PRs or syncing the repo, exclude these paths. If a future sync tool would copy `characters/` wholesale, filter these files out. See `ai-reference/LOCAL_ONLY_FILES.md` and keep both lists current as new personas are added.
+**Do not commit persona files to the UPSTREAM public repo** — only this private fork. If a PR ever targets upstream, exclude `local-personas/`.
 
 ## Roadmap (planned work, user-approved direction)
 
